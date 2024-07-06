@@ -1,0 +1,519 @@
+@property --grediant-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Bona Nova SC", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --content-border-color: rgb(23, 23, 23);
+    --purple: #bdb2ff;
+    --redish: #a0c4ff;
+    --yellow: #fdffb6;
+    --green: #ffd6a5;
+}
+
+body {
+    margin: 0px;
+    padding: 0;
+    background-color: rgb(20, 20, 20);
+}
+
+@keyframes background-pan {
+    from {
+        background-position: 0% center;
+    }
+
+    to {
+        background-position: -200% center;
+    }
+}
+
+@keyframes rotation {
+    0% {
+        --grediant-angle: 0deg;
+    }
+
+    100% {
+        --grediant-angle: 360deg;
+    }
+}
+
+.background__effect {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.2) 5%,
+            transparent 9%);
+    background-position: 0% 0%;
+    background-size: 5vmin 5vmin;
+    height: 113vh;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    transition: opacity 800ms ease,
+        background-size 800ms ease,
+        background-position 1000ms ease;
+    width: 100%;
+    z-index: -1;
+}
+
+.carousel__nav:hover~.background__effect {
+    background-size: 5.5vmin 5.5vmin;
+    opacity: 0.5;
+}
+
+.background-image {
+    height: 100%;
+    width: 100%;
+    /* background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.p8sx51z_buVbo5HHPdvxMwHaEK%26pid%3DApi&f=1&ipt=9fd92170d3d865668a877a6cc2bed533414704a928c8a181b4f63ee94b58b1c5&ipo=images); */
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-position: center 40%;
+    background-size: 110vmax;
+    opacity: 0.15;
+    transition: opacity 800ms ease,
+        background-size 800ms ease,
+        background-position 800ms ease;
+    z-index: -1;
+}
+
+.carousel__indicator:hover~.background-image {
+    background-size: 100vmax;
+    opacity: 0.10;
+}
+
+.carousel[data-active-index="0"]>.background__effect {
+    background-position: -20% 0%;
+}
+
+.carousel[data-active-index="1"]>.background__effect {
+    background-position: -40% 0%;
+}
+
+.carousel[data-active-index="2"]>.background__effect {
+    background-position: -60% 0%;
+}
+
+.carousel[data-active-index="3"]>.background__effect {
+    background-position: -80% 0%;
+}
+
+.carousel[data-active-index="4"]>.background__effect {
+    background-position: -100% 0%;
+}
+
+
+.carousel__nav:hover>.carousel__indicator {
+    opacity: 0.5;
+}
+
+.carousel__nav:hover>.carousel__indicator:hover {
+    opacity: 1;
+}
+
+
+.header {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+    text-align: center;
+    font-size: 3.6rem;
+}
+
+.abumalik {
+    animation: background-pan 3s linear infinite;
+    background: linear-gradient(to right,
+            var(--purple),
+            var(--redish),
+            var(--yellow),
+            var(--green),
+            var(--purple));
+    background-size: 200%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+    position: relative;
+}
+
+.carousel {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100vw;
+}
+
+.carousel__track-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 70vh;
+    margin: 0 auto;
+    text-align: center;
+    width: 80vw;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.carousel__track-container:hover::before,
+.carousel__track-container:hover>.content-border-effect {
+    opacity: 1;
+}
+
+.carousel__track-container::before,
+.carousel__track-container>.content-border-effect {
+    border-radius: inherit;
+    content: "";
+    transition: opacity 500ms;
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    opacity: 0;
+    width: 100%;
+}
+
+.carousel__track-container::before {
+    pointer-events: none;
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.06),
+            transparent 25%);
+    z-index: 3;
+}
+
+.carousel__track-container>.content-border-effect {
+    background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 2),
+            transparent 25%);
+    z-index: 1;
+}
+
+
+.content-border {
+    background-color: var(--content-border-color);
+    border-radius: inherit;
+    margin: 1px;
+    position: relative;
+    height: calc(100% - 2px);
+    width: calc(100% - 2px);
+    z-index: 2;
+}
+
+.content-border>ul {
+    z-index: -100;
+}
+
+.carousel__track {
+    padding: 0;
+    margin: 0;
+    color: aliceblue;
+    position: relative;
+    list-style: none;
+    transition: transform 500ms ease-in-out;
+}
+
+.carousel__slide {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.carousel__indicator {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 180px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 20px;
+    color: azure;
+    display: inline-flex;
+    align-items: center;
+}
+
+.carousel__indicator .icon {
+    width: 24px;
+    height: 24px;
+    fill: azure;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+.carousel__indicator .content {
+    display: flex;
+    align-items: center;
+}
+
+.carousel__indicator .button-text {
+    display: inline-block;
+}
+
+.carousel__indicator:hover {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel__nav {
+    display: flex;
+    width: 80vw;
+    position: relative;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+}
+
+.loading-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #343a40;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+#svg {
+    height: 150px;
+    width: 150px;
+    stroke: #fff;
+    fill-opacity: 0;
+    stroke-width: 3px;
+    stroke-dasharray: 4500;
+    animation: draw 8s ease;
+}
+
+@keyframes draw {
+    0% {
+        stroke-dashoffset: 4500;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+.logo-name {
+
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 576px) {
+    .header {
+        margin-top: 1.5rem;
+        font-size: 2rem;
+    }
+
+    .carousel__track {
+        font-size: 10px;
+    }
+
+    .abumalik {
+        font-size: 2rem;
+    }
+
+    .carousel__indicator {
+        font-size: 14px;
+        height: 25px;
+        width: 90px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        margin-top: 2rem;
+        font-size: 2.5rem;
+    }
+
+    .carousel__track {
+        font-size: 10px;
+    }
+
+    .abumalik {
+        font-size: 2.5rem;
+    }
+
+    .carousel__indicator {
+        font-size: 16px;
+        height: 30px;
+        width: 100px;
+    }
+}
+
+.glow-effect {
+    --glow-line-color: #fff;
+    --glow-line-thickness: 2px;
+    --glow-line-length: 20px;
+    --glow-blur-color: #fff;
+    --glow-blur-size: 5px;
+    --glow-offset: 0px;
+    --animation-speed: 1200ms;
+    /* do not change, used for calculations */
+    --container-offset: 100px;
+    position: relative;
+}
+
+.glow-container {
+    position: absolute;
+    inset: calc(var(--container-offset) / -2);
+    width: calc(100% + var(--container-offset));
+    height: calc(100% + var(--container-offset));
+    opacity: 0;
+    /* outline: 3px solid blue; */
+}
+
+.glow-blur,
+.glow-line {
+    width: calc(100% - var(--container-offset) + var(--glow-offset));
+    height: calc(100% - var(--container-offset) + var(--glow-offset));
+    x: calc((var(--container-offset) / 2) + calc(var(--glow-offset) / -2));
+    y: calc((var(--container-offset) / 2) + calc(var(--glow-offset) / -2));
+    /* rx: 1.25rem; */
+    fill: transparent;
+    stroke: black;
+    stroke-width: 5px;
+    stroke-dasharray: var(--glow-line-length) calc(50px - var(--glow-line-length));
+}
+
+.glow-effect:is(:hover, :focus) :is(.glow-line, .glow-blur) {
+    stroke-dashoffset: -80px;
+    transition: stroke-dashoffset var(--animation-speed) ease-in;
+}
+
+.glow-line {
+    stroke: var(--glow-line-color);
+    stroke-width: var(--glow-line-thickness);
+}
+
+.glow-blur {
+    filter: blur(var(--glow-blur-size));
+    stroke: var(--glow-blur-color);
+    stroke-width: var(--glow-blur-size);
+}
+
+.glow-effect:is(:hover, :focus) .glow-container {
+    animation: glow-visibility ease-in-out var(--animation-speed);
+}
+
+@keyframes glow-visibility {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    25%,
+    75% {
+        opacity: 1;
+    }
+}
+
+.glow-effect[data-glow-animation="false"] {
+    --glow-line-length: 50px;
+}
+
+.glow-effect[data-glow-offset="true"] {
+    --glow-offset: 10px;
+}
+
+.glow-effect[data-glow-animation="grow"]:is(:hover, :focus) .glow-container {
+    scale: 1.3;
+    transition: scale var(--animation-speed) linear;
+}
+
+
+.wrapper {
+    padding: 10px 10%;
+}
+
+.card-area {
+    padding: 50px 0;
+}
+
+.box-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+    grid-gap: 50px;
+    margin-top: 50px;
+}
+
+.box {
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.box img {
+    width: 100%;
+    border-radius: 10px;
+    position: relative;
+    display: block;
+    object-fit: cover;
+    z-index: 1;
+    transition: transform 0.5s;
+}
+
+.overlay {
+    height: 0;
+    width: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    z-index: 2;
+    text-align: center;
+    font-size: 14px;
+    transition: height 0.5s;
+}
+
+.overlay h3 {
+    font-weight: 500;
+    margin-bottom: 5px;
+    margin-top: 80%;
+    letter-spacing: 2px;
+}
+
+.overlay a {
+    margin-top: 10px;
+    color: #262626;
+    text-decoration: none;
+    font-size: 14px;
+    background: #fff;
+    border-radius: 50px;
+    text-align: center;
+    padding: 5px 15px;
+}
+
+.box:hover img {
+    z-index: 1;
+    transform: scale(1.05);
+}
+
+.box:hover .overlay {
+    height: 100%;
+    z-index: 2;
+}

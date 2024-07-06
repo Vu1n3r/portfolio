@@ -11,7 +11,7 @@ const header = document.querySelector(".abumalik")
 gsap.fromTo('.loading-page' , {opacity: 1,zIndex:10}, {
   opacity:0,
   duration:1.5,
-  delay:3.5,
+  delay:1.4,
   zIndex:-3
 })
 
